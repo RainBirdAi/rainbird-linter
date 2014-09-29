@@ -1,0 +1,28 @@
+{
+    "name": "rainbird-linter",
+    "description": "Wrapper for JSHint/Plato/Instanbul",
+    "author": "Dom Davis <dom.davis@rainbird.ai>",
+    "license": "ISC",
+    "main": "linter.js",
+    "version": "0.0.1",
+    "scripts": {
+        "test": "echo \"Error: no test specified\" && exit 1"
+    },
+    "homepage": "https://github.com/RainBirdAi/rainbird-linter",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/RainBirdAi/rainbird-linter.git"
+    },
+    "bugs": {
+        "url": "https://github.com/RainBirdAi/rainbird-linter/issues"
+    },
+    "keywords": [
+        "JSHint",
+        "Plato",
+        "linter",
+        "Istanbul"
+    ],
+    "dependencies": {
+        "async": "*"
+    }
+}
