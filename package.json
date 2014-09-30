@@ -23,7 +23,7 @@
         "Istanbul"
     ],
     "dependencies": {
-        "winston": "*",
+        "chalk": "*",
         "async": "*"
     }
 }
