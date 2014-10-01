@@ -3,7 +3,7 @@
     "description": "Wrapper for JSHint/Plato/Instanbul",
     "author": "Dom Davis <dom.davis@rainbird.ai>",
     "license": "ISC",
-    "main": "linter.js",
+    "main": "report.js",
     "version": "0.0.1",
     "scripts": {
         "test": "echo \"Error: no test specified\" && exit 1"
@@ -23,6 +23,8 @@
         "Istanbul"
     ],
     "dependencies": {
+        "build-jshint": "*",
+        "plato": "*",
         "node-getopt": "*",
         "chalk": "*",
         "async": "*"
