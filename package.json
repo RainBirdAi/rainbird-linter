@@ -23,6 +23,7 @@
         "Istanbul"
     ],
     "dependencies": {
+        "node-getopt": "*",
         "chalk": "*",
         "async": "*"
     }
