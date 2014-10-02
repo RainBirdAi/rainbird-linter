@@ -1,4 +1,4 @@
 {
-    "includeFiles": ["report.js", "lib/"],
+    "includeFiles": ["report.js", "lib/", "test/"],
     "excludeFiles": []
 }
