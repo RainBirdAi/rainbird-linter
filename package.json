@@ -7,7 +7,9 @@
     "version": "0.0.1",
     "scripts": {
         "start": "node report.js -f ./config.json",
-        "test": "echo \"Error: no test specified\" && exit 1"
+        "pretest": "rm -rf docs && rm -rf coverage && docco *.js lib/*.js",
+        "test": "node report.js -f ./config.json && istanbul cover _mocha -- -R spec",
+        "posttest": "istanbul report html"
     },
     "homepage": "https://github.com/RainBirdAi/rainbird-linter",
     "repository": {
@@ -24,10 +26,16 @@
         "Istanbul"
     ],
     "dependencies": {
+        "istanbul": "*",
         "build-jshint": "*",
         "plato": "*",
         "node-getopt": "*",
         "chalk": "*",
         "async": "*"
+    },
+    "devDependencies": {
+        "docco": "*",
+        "mocha": "*",
+        "expect.js": "*"
     }
 }
