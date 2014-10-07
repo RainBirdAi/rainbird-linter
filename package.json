@@ -1,0 +1,41 @@
+{
+    "name": "rainbird-linter",
+    "description": "Wrapper for JSHint/Plato/Instanbul",
+    "author": "Dom Davis <dom.davis@rainbird.ai>",
+    "license": "ISC",
+    "main": "report.js",
+    "version": "0.0.1",
+    "scripts": {
+        "start": "node report.js -f ./config.json",
+        "pretest": "rm -rf docs && rm -rf coverage && docco *.js lib/*.js",
+        "test": "node report.js -f ./config.json && istanbul cover _mocha -- -R spec",
+        "posttest": "istanbul report html"
+    },
+    "homepage": "https://github.com/RainBirdAi/rainbird-linter",
+    "repository": {
+        "type": "git",
+        "url": "git://github.com/RainBirdAi/rainbird-linter.git"
+    },
+    "bugs": {
+        "url": "https://github.com/RainBirdAi/rainbird-linter/issues"
+    },
+    "keywords": [
+        "JSHint",
+        "Plato",
+        "linter",
+        "Istanbul"
+    ],
+    "dependencies": {
+        "istanbul": "*",
+        "build-jshint": "*",
+        "plato": "*",
+        "node-getopt": "*",
+        "chalk": "*",
+        "async": "*"
+    },
+    "devDependencies": {
+        "docco": "*",
+        "mocha": "*",
+        "expect.js": "*"
+    }
+}
