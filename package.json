@@ -4,7 +4,7 @@
     "author": "Dom Davis <dom.davis@rainbird.ai>",
     "license": "ISC",
     "main": "report.js",
-    "version": "0.0.1",
+    "version": "0.0.2",
     "scripts": {
         "start": "node report.js -f ./config.json",
         "pretest": "rm -rf docs && rm -rf coverage && docco *.js lib/*.js",
