@@ -55,4 +55,12 @@ describe('Filesets', function() {
         expect(filesets.jshintExcludes()).to.eql(['a', 'b', 'c/**/*.js']);
         done();
     });
+
+    it('should return null if there are no plato exclude files',
+        function(done) {
+            filesets.exclude([]);
+            expect(filesets.platoExcludes()).to.be(null);
+            done();
+        }
+    );
 });

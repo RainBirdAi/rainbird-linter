@@ -1,6 +1,7 @@
 // Run JSHint and Plato over the specified files
 
 var fs = require('fs');
+var async = require('async');
 var chalk = require('chalk');
 var plato = require('plato');
 var Getopt = require('node-getopt');
@@ -12,8 +13,9 @@ var reporter = require('./lib/reporter.js');
 // By default reports are output to `./reports` and given the title of `Plato
 // Report`.
 
-var outputDir = './reports';
+var outputDir = 'reports';
 
+var options = {};
 var jsHintOptions = {};
 var platoOptions = {
     title: 'Plato Report',
@@ -25,7 +27,7 @@ var platoOptions = {
 // explicitly provided as an absolute or relative path. Valid paths are passed
 // to the provided callback.
 
-function checkPath(string, callback) {
+function checkPath(string, callback, done) {
     var path = string;
     if (!(/^\.|\//).test(string)) {
         path = './' + string;
@@ -36,7 +38,7 @@ function checkPath(string, callback) {
             console.log(chalk.red('Error, cannot open: %s'), string);
             process.exit(1);
         } else {
-            callback(path);
+            callback(path, done);
         }
     });
 }
@@ -44,16 +46,29 @@ function checkPath(string, callback) {
 // Plato uses the `jshintrc` as is, whereas JSHint-Build needs the options
 // inserted into its own options.
 
-function setJSHint(path) {
+function setJSHint(path, done) {
     var opts = require(path);
     platoOptions.jshint = path;
     jsHintOptions.options = opts;
+    done(null);
+}
+
+// The default `jshintrc` from the linter package can be overridden with the
+// `jshint` option. The provided file is checked to ensure it exists before it's
+// used.
+
+function checkJSHint(done) {
+    if (options.jshint) {
+        checkPath(options.jshint, setJSHint, done);
+    } else {
+        done();
+    }
 }
 
 // Set the filesets from those defined in the provided configuration file. If
 // a given fileset isn't defined then a warning will be output.
 
-function setFilesets(path) {
+function setFilesets(path, done) {
     var config = require(path);
 
     /* jshint sub: true */
@@ -73,9 +88,55 @@ function setFilesets(path) {
         console.log(chalk.yellow('`excludeFiles` not found in %s'), path);
     }
 
+    done(null);
 }
 
-// The default options can all be overridden from the command line.
+// The default filesets that are used can be overridden from the command line by
+// providing a configuration file with the new filesets defined. The existence
+// of the configuration file is checked before the new filesets are defined.
+
+function checkFilesets(done) {
+    /* jshint sub: true */
+    if (options['filesets']) {
+        checkPath(options['filesets'], setFilesets, done);
+    } else {
+        done();
+    }
+    /* jshint sub: false */
+}
+
+// Run the actual reports. The plato reports are run first, then the JSHint
+// report. The output is annotated with headers and details on where the reports
+// are stored.
+
+function runReports(err) {
+    if (err) { console.log(chalk.red('Error running reports: %s'), err); }
+
+    var excludes = filesets.platoExcludes();
+
+    if (excludes) {
+        platoOptions.exclude = excludes;
+    }
+
+    jsHintOptions.ignore = filesets.jshintExcludes();
+    jsHintOptions.reporter = reporter.reporter;
+
+    console.log(chalk.blue('Building plato reports...'));
+    console.log(chalk.gray('(Ignore any output about being unable to parse ' +
+        'JSON files)'));
+
+    plato.inspect(filesets.platoIncludes(), outputDir, platoOptions,
+        function() {
+            console.log(chalk.blue('\nPlato reports have been built to: ') +
+                chalk.magenta(outputDir));
+            console.log(chalk.blue('\nJSHint Report\n=============\n'));
+            buildJSHint(filesets.jshintIncludes(), jsHintOptions,
+                reporter.callback);
+        }
+    );
+}
+
+// Provide options to override all the defaults from the command line
 
 getopt = new Getopt([
     ['t', 'title=TITLE', 'The title of the report.'],
@@ -89,40 +150,17 @@ getopt = new Getopt([
 getopt.setHelp("Usage: node report.js [options]\n[[OPTIONS]]");
 getopt.bindHelp();
 
-getopt.on('title', function(argv, options) {
+// Override defaults with any options from the command line, then run the
+// reports.
+
+options = getopt.parseSystem().options;
+
+if (options.title) {
     platoOptions.title = options.title;
-});
+}
 
-getopt.on('output', function(argv, options) {
+if (options.output) {
     outputDir = options.output;
-});
+}
 
-getopt.on('jshint', function(argv, options) {
-    checkPath(options.jshint, setJSHint);
-});
-
-getopt.on('filesets', function(argv, options) {
-    /* jshint sub: true */
-    checkPath(options['filesets'], setFilesets);
-    /* jshint sub: false */
-});
-
-getopt.parseSystem();
-
-// Finish up the configuration and build the reports, starting with Plato, then
-// JS Hint.
-
-platoOptions.exclude = filesets.platoExcludes();
-jsHintOptions.ignore = filesets.jshintExcludes();
-jsHintOptions.reporter = reporter.reporter;
-
-console.log(chalk.blue('Building plato reports...'));
-console.log(chalk.gray('(Ignore any output about being unable to parse JSON ' +
-    'files)'));
-
-plato.inspect(filesets.platoIncludes(), outputDir, platoOptions, function() {
-    console.log(chalk.blue('\nPlato reports have been built to: ') +
-        chalk.magenta(outputDir));
-    console.log(chalk.blue('\nJSHint Report\n=============\n'));
-    buildJSHint(filesets.jshintIncludes(), jsHintOptions, reporter.callback);
-});
+async.parallel([checkJSHint, checkFilesets], runReports);
