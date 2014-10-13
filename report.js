@@ -69,7 +69,7 @@ function checkJSHint(done) {
 // a given fileset isn't defined then a warning will be output.
 
 function setFilesets(path, done) {
-    var config = require(path);
+    var config = JSON.parse(fs.readFileSync(path, 'utf8'));
 
     /* jshint sub: true */
     var includeFiles = config['includeFiles'];

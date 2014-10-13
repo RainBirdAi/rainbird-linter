@@ -8,13 +8,13 @@ same linter options.
 # Installation
 
 ```bash
-npm install rainbird-linter
+npm install -g rainbird-linter
 ```
 
 # Usage
 
 ```bash
-Usage: node report.js [options]
+Usage: rblint [options]
   -t, --title=TITLE    The title of the report.
   -o, --output=PATH    The directory to output the reports to
   -l, --jshint=PATH    Path to a jshintrc file for JSHint linting.
@@ -25,8 +25,8 @@ Usage: node report.js [options]
 ## Example
 
 ```bash
-node report.js --title "My Report" --output ~/reports/myproj/ \
-               --jshint ~/.jshintrc --filesets ./filesets.json
+rblint --title "My Report" --output ~/reports/myproj/ --jshint ~/.jshintrc \
+       --filesets ./filesets.json
 ```
 
 The above command will create a Plato report entitled "My Report" in
