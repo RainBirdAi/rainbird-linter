@@ -1,5 +1,7 @@
 # rainbird-linter
 
+[ ![Codeship Status for RainBirdAi/rainbird-linter](https://www.codeship.io/projects/a5b34b90-35a4-0132-be58-5a23f417d8f3/status)](https://www.codeship.io/projects/41124)
+
 Wrapper for JSHint/Plato that produces a JSHint report to the console, and a
 Plato report to the filesystem. The reports cover the same filesets and use the
 same linter options.
