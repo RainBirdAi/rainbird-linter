@@ -1,5 +1,9 @@
 # Rainbird Linter Release Notes
 
+## Release 0.1.3
+
+* [Misc] Fix type in release notes filename
+
 ## Release 0.1.2
 
 * [Misc] Set preferGlobal flag to allow rblint command to be properly installed
