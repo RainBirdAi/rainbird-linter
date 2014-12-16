@@ -50,7 +50,7 @@ function setJSHint(path, done) {
     var opts = require(path);
     platoOptions.jshint = path;
     jsHintOptions.options = opts;
-    done(null);
+    done();
 }
 
 // The default `jshintrc` from the linter package can be overridden with the
@@ -66,7 +66,8 @@ function checkJSHint(done) {
 }
 
 // Set the filesets from those defined in the provided configuration file. If
-// a given fileset isn't defined then a warning will be output.
+// a given fileset isn't defined then a warning will be output. The `lintOnly`
+// fileset is an optional fileset that will be excluded from the Plato fileset.
 
 function setFilesets(path, done) {
     var config = JSON.parse(fs.readFileSync(path, 'utf8'));
@@ -74,21 +75,27 @@ function setFilesets(path, done) {
     /* jshint sub: true */
     var includeFiles = config['includeFiles'];
     var excludeFiles = config['excludeFiles'];
+    var filterFiles = config['lintOnly'];
     /* jshint sub: false */
 
-    if (includeFiles) {
-        filesets.include(includeFiles);
-    } else {
-        console.log(chalk.yellow('`includeFiles` not found in %s'), path);
+    if (filterFiles && !Array.isArray(filterFiles)) {
+        filterFiles = [];
+        console.log(chalk.yellow('invalid `lintOnly` set; ignoring'));
     }
 
-    if (excludeFiles) {
+    if (includeFiles && Array.isArray(includeFiles)) {
+        filesets.include(includeFiles, filterFiles);
+    } else {
+        console.log(chalk.yellow('valid `includeFiles` not found in %s'), path);
+    }
+
+    if (excludeFiles && Array.isArray(includeFiles)) {
         filesets.exclude(excludeFiles);
     } else {
-        console.log(chalk.yellow('`excludeFiles` not found in %s'), path);
+        console.log(chalk.yellow('valid `excludeFiles` not found in %s'), path);
     }
 
-    done(null);
+    done();
 }
 
 // The default filesets that are used can be overridden from the command line by
