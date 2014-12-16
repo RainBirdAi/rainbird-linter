@@ -63,4 +63,11 @@ describe('Filesets', function() {
             done();
         }
     );
+
+    it('should filter plato filesets but not jshint ones', function(done) {
+        filesets.include(['a', 'b', 'c/'], ['c/']);
+        expect(filesets.jshintIncludes()).to.eql(['a', 'b', 'c/**/*.js']);
+        expect(filesets.platoIncludes()).to.eql(['a', 'b']);
+        done();
+    });
 });

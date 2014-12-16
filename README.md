@@ -4,7 +4,8 @@
 
 Wrapper for JSHint/Plato that produces a JSHint report to the console, and a
 Plato report to the filesystem. The reports cover the same filesets and use the
-same linter options.
+same linter options, although allow for filtering some files from the plato
+report.
 
 
 # Installation
@@ -24,6 +25,10 @@ Usage: rblint [options]
   -h, --help           display this help text.
 ```
 
+The file containing the filesets must be valid JSON containing two properties,
+`includeFiles` and `excludeFiles`. Optionally the property `lintOnly` can be
+set. Each property is an array of strings containing file or directory names.
+
 ## Example
 
 ```bash
@@ -40,13 +45,25 @@ directory.
 If the contents of `filesets.json` was:
 
 ```javascript
+{
     "includeFiles": ["index.js", "lib/", "test/", "public/"],
-    "excludeFiles": ["public/thirdparty/"]
+    "excludeFiles": ["public/thirdparty/"],
+    "lintOnly": ["public/"]
+}
 ```
 
 The the report would be run over `index.js`, all javascript files under `lib/`,
 all javascript files under `test/` and all javascript files under `public/`
-apart from the content of `public/thirdparty/`.
+apart from the content of `public/thirdparty/`. The contents of `test/` will not
+be included in the plato reports.
+
+# Change Log
+
+## 0.1.4
+
+  * [New] - Ability to add `lintOnly` filter set allowing for de-cluttered
+    plato reports while still enforcing linting standards on test code
+  * [New] - Added change log/release notes
 
 # License
 
