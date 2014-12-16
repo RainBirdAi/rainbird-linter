@@ -26,7 +26,7 @@ Usage: rblint [options]
 ```
 
 The file containing the filesets must be valid JSON containing two properties,
-`includeFiles` and `excludeFiles`. Optionally the property `jshintOnly` can be
+`includeFiles` and `excludeFiles`. Optionally the property `lintOnly` can be
 set. Each property is an array of strings containing file or directory names.
 
 ## Example
@@ -48,7 +48,7 @@ If the contents of `filesets.json` was:
 {
     "includeFiles": ["index.js", "lib/", "test/", "public/"],
     "excludeFiles": ["public/thirdparty/"],
-    "jshintOnly": ["public/"]
+    "lintOnly": ["public/"]
 }
 ```
 
@@ -61,7 +61,7 @@ be included in the plato reports.
 
 ## 0.1.4
 
-  * [New] - Ability to add `jshintOnly` filter set allowing for de-cluttered
+  * [New] - Ability to add `lintOnly` filter set allowing for de-cluttered
     plato reports while still enforcing linting standards on test code
   * [New] - Added change log/release notes
 
