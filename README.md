@@ -57,13 +57,38 @@ all javascript files under `test/` and all javascript files under `public/`
 apart from the content of `public/thirdparty/`. The contents of `test/` will not
 be included in the plato reports.
 
-# Change Log
+# Release Notes
+
+## 0.1.5
+
+  * [Misc] - Move from expect.js to chai
+  * [Misc] - Tidy up project structure
 
 ## 0.1.4
 
   * [New] - Ability to add `lintOnly` filter set allowing for de-cluttered
     plato reports while still enforcing linting standards on test code
   * [New] - Added change log/release notes
+
+## Release 0.1.3
+
+  * [Misc] - Fix type in release notes filename
+
+## Release 0.1.2
+
+  * [Misc] - Set preferGlobal flag to allow rblint command to be properly installed
+  * [Misc] - Added release notes
+
+## Release 0.1.1
+
+  * [New]   - Bind to rblint command
+  * [Fixed] - Can't use empty filesets
+  * [Fixed] - Can't run tool from anywhere
+  * [Misc]  - Tidied up documentation
+
+## Release 0.1.0
+
+  * [New] Initial release
 
 # License
 
