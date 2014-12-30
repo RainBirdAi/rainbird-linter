@@ -4,16 +4,20 @@
     "author": "Dom Davis <dom.davis@rainbird.ai>",
     "license": "ISC",
     "main": "report.js",
-    "version": "0.1.4",
+    "version": "0.1.5",
     "preferGlobal": true,
     "bin": {
         "rblint": "./bin/rblint"
     },
+    "engines" : {
+        "node" : "0.10.30"
+    },
     "scripts": {
-        "start": "node report.js -f ./config.json",
+        "start": "node report.js -f ./linter.json",
         "pretest": "rm -rf docs && rm -rf coverage && docco *.js lib/*.js",
-        "test": "node report.js -f ./config.json && istanbul cover _mocha -- -R spec",
-        "posttest": "istanbul report html"
+        "test": "rblint -f ./linter.json && istanbul cover _mocha -- -R spec test/*.test.js",
+        "posttest": "istanbul report html",
+        "functional-test": "rblint -f ./linter.json && istanbul cover _mocha -- -R spec"
     },
     "homepage": "https://github.com/RainBirdAi/rainbird-linter",
     "repository": {
@@ -40,6 +44,6 @@
     "devDependencies": {
         "docco": "*",
         "mocha": "*",
-        "expect.js": "*"
+        "chai": "*"
     }
 }

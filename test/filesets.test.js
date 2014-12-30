@@ -1,4 +1,4 @@
-var expect = require('expect.js');
+var expect = require('chai').expect;
 var filesets = require('../lib/filesets.js');
 
 describe('Filesets', function() {
@@ -59,7 +59,7 @@ describe('Filesets', function() {
     it('should return null if there are no plato exclude files',
         function(done) {
             filesets.exclude([]);
-            expect(filesets.platoExcludes()).to.be(null);
+            expect(filesets.platoExcludes()).to.be.null();
             done();
         }
     );
