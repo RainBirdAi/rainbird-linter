@@ -1,5 +1,0 @@
-{
-    "includeFiles": ["report.js", "lib/", "test/"],
-    "excludeFiles": [],
-    "lintOnly": ["test/"]
-}
