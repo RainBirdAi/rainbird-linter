@@ -59,6 +59,9 @@ be included in the plato reports.
 
 # Release Notes
 
+## 0.1.6
+  * [Misc] - Lock down the version numbers of any dependencies
+
 ## 0.1.5
 
   * [Misc] - Move from expect.js to chai
