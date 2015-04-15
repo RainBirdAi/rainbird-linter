@@ -4,13 +4,13 @@
     "author": "Dom Davis <dom.davis@rainbird.ai>",
     "license": "ISC",
     "main": "report.js",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "preferGlobal": true,
     "bin": {
         "rblint": "./bin/rblint"
     },
     "engines" : {
-        "node" : ">=0.10.30"
+        "node" : "0.10.30"
     },
     "scripts": {
         "start": "node report.js -f ./linter.json",
