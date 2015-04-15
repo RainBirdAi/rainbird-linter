@@ -59,6 +59,11 @@ be included in the plato reports.
 
 # Release Notes
 
+## 0.1.7
+
+  * [Misc] Lock down node version in `package.json` to avoid problems in the 
+           latest version of node and npm.
+
 ## 0.1.6
   * [Misc] Lock down the version numbers of any dependencies
 
