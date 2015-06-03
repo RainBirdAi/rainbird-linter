@@ -59,6 +59,11 @@ be included in the plato reports.
 
 # Release Notes
 
+## 0.1.8
+
+  * [Fix] Fixes issue where incorrectly stating Node's global modules are
+          undefined. Updates node flag to be true.
+
 ## 0.1.7
 
   * [Misc] Lock down node version in `package.json` to avoid problems in the 
