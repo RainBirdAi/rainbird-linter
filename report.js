@@ -1,6 +1,7 @@
 // Run JSHint and Plato over the specified files
 
 var fs = require('fs');
+var path = require('path');
 var async = require('async');
 var chalk = require('chalk');
 var plato = require('plato');
@@ -47,9 +48,11 @@ function checkPath(string, callback, done) {
 // inserted into its own options.
 
 function setJSHint(path, done) {
-    var opts = require(path);
-    platoOptions.jshint = path;
-    jsHintOptions.options = opts;
+    //var opts = require(path);
+    var opts = JSON.parse(fs.readFileSync(path, 'utf8'));
+
+    //platoOptions.jshint = path;
+    jsHintOptions.config = opts;
     done();
 }
 
@@ -58,11 +61,9 @@ function setJSHint(path, done) {
 // used.
 
 function checkJSHint(done) {
-    if (options.jshint) {
-        checkPath(options.jshint, setJSHint, done);
-    } else {
-        done();
-    }
+    if(!options.jshint) options.jshint = path.join(__dirname, ".jshintrc");
+
+    checkPath(options.jshint, setJSHint, done);
 }
 
 // Set the filesets from those defined in the provided configuration file. If
