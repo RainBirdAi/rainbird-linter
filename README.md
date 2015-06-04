@@ -59,10 +59,14 @@ be included in the plato reports.
 
 # Release Notes
 
+## 0.1.9
+
+  *  [New] Adds a --version/-v flag
+
 ## 0.1.8
-  * [Fix] Fixes .jshintrc not loading.
-  * [Fix] Fixes issue where incorrectly stating Node's global modules are
-          undefined. Updates node flag to be true.
+  *  [Fix] Fixes .jshintrc not loading.
+  *  [Fix] Fixes issue where incorrectly stating Node's global modules are
+           undefined. Updates node flag to be true.
 
 ## 0.1.7
 
