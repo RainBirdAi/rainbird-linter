@@ -152,6 +152,7 @@ getopt = new Getopt([
     ['l', 'jshint=PATH', 'Path to a jshintrc file for JSHint linting.'],
     ['f', 'filesets=PATH',
      'Path to a file containing the filesets to report on.'],
+    ['v', 'version', 'Display the installed version'],
     ['h', 'help', 'display this help text.']
 ]);
 
@@ -169,6 +170,13 @@ if (options.title) {
 
 if (options.output) {
     outputDir = options.output;
+}
+
+if (options.version) {
+    var path = path.join(__dirname, 'package.json');
+    var pkg = JSON.parse(fs.readFileSync(path, 'utf8'));
+    console.log(pkg.version);
+    process.exit(0);
 }
 
 async.parallel([checkJSHint, checkFilesets], runReports);
