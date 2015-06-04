@@ -60,7 +60,9 @@ function setJSHint(path, done) {
 // used.
 
 function checkJSHint(done) {
-    if(!options.jshint) options.jshint = path.join(__dirname, ".jshintrc");
+    if(!options.jshint) {
+        options.jshint = path.join(__dirname, ".jshintrc");
+    }
 
     checkPath(options.jshint, setJSHint, done);
 }
