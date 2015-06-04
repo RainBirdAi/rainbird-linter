@@ -50,7 +50,6 @@ function checkPath(string, callback, done) {
 function setJSHint(path, done) {
     var opts = JSON.parse(fs.readFileSync(path, 'utf8'));
 
-    //platoOptions.jshint = path;
     jsHintOptions.config = opts;
     done();
 }
@@ -61,7 +60,7 @@ function setJSHint(path, done) {
 
 function checkJSHint(done) {
     if(!options.jshint) {
-        options.jshint = path.join(__dirname, ".jshintrc");
+        options.jshint = path.join(__dirname, '.jshintrc');
     }
 
     checkPath(options.jshint, setJSHint, done);
