@@ -48,7 +48,6 @@ function checkPath(string, callback, done) {
 // inserted into its own options.
 
 function setJSHint(path, done) {
-    //var opts = require(path);
     var opts = JSON.parse(fs.readFileSync(path, 'utf8'));
 
     //platoOptions.jshint = path;
