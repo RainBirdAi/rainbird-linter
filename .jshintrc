@@ -21,7 +21,7 @@
     "gcl": false,
     "globalstrict": false,
     "immed": false,
-    "indent": false,
+    "indent": 4,
     "iterator": false,
     "jquery": false,
     "lastsemic": false,
