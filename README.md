@@ -60,7 +60,7 @@ be included in the plato reports.
 # Release Notes
 
 ## 0.1.8
-
+  * [Fix] Fixes .jshintrc not loading.
   * [Fix] Fixes issue where incorrectly stating Node's global modules are
           undefined. Updates node flag to be true.
 
