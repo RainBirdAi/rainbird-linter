@@ -22,6 +22,7 @@ Usage: rblint [options]
   -o, --output=PATH    The directory to output the reports to
   -l, --jshint=PATH    Path to a jshintrc file for JSHint linting.
   -f, --filesets=PATH  Path to a file containing the filesets to report on.
+  -v, --version        Display the installed version.
   -h, --help           display this help text.
 ```
 
